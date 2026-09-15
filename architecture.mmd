@@ -1,0 +1,42 @@
+graph TD
+    classDef client fill:#3b82f6,stroke:#1d4ed8,stroke-width:2px,color:#fff,rx:8px
+    classDef frontend fill:#10b981,stroke:#047857,stroke-width:2px,color:#fff,rx:8px
+    classDef backend fill:#8b5cf6,stroke:#6d28d9,stroke-width:2px,color:#fff,rx:8px
+    classDef db fill:#f59e0b,stroke:#b45309,stroke-width:2px,color:#fff,rx:8px
+    classDef auth fill:#ef4444,stroke:#b91c1c,stroke-width:2px,color:#fff,rx:8px
+
+    subgraph User Layer
+        A[Web Browser / User]:::client
+    end
+
+    subgraph Frontend Layer - React SPA
+        B[Vite + React 18 UI]:::frontend
+        C[Tailwind CSS v4]:::frontend
+        D[TanStack React Query]:::frontend
+        E[Axios API Client]:::frontend
+        
+        B --- C
+        B --- D
+        D --- E
+    end
+
+    subgraph Backend Layer - FastAPI
+        F[Uvicorn ASGI Server]:::backend
+        G[FastAPI Endpoints]:::backend
+        H[Pydantic Validation]:::backend
+        I[PyJWT / Passlib Auth]:::auth
+        J[SQLAlchemy Async ORM]:::backend
+
+        F --> G
+        G --- H
+        G --- I
+        G --- J
+    end
+
+    subgraph Data Layer
+        K[(SQLite / PostgreSQL)]:::db
+    end
+
+    A -->|HTTPS Requests| B
+    E -->|REST API + JWT| F
+    J -->|Async SQL| K
