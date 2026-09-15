@@ -193,7 +193,7 @@ function NotificationBell() {
     refetchInterval: 30000,
   });
 
-  const alerts = [];
+  const alerts: any[] = [];
   if (data?.low_stock_products) {
     data.low_stock_products.forEach((p: any) => {
       alerts.push({
