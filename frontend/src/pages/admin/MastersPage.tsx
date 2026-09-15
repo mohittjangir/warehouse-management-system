@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { masterService } from '../../services/api';
 import { TopBar } from '../../components/layouts/Sidebar';
@@ -25,6 +25,10 @@ export default function MastersPage({ tab: initialTab }: { tab: TabType }) {
   const [showModal, setShowModal] = useState(false);
   const [editing, setEditing] = useState<any>(null);
   const qc = useQueryClient();
+
+  useEffect(() => {
+    if (initialTab) setTab(initialTab);
+  }, [initialTab]);
 
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm();
 
