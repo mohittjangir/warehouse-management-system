@@ -102,7 +102,7 @@ export default function AdminDashboardPage() {
       {/* Charts Row */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Stock Movement Area Chart */}
-        <div className="card lg:col-span-2">
+        <div className="card lg:col-span-2 min-w-0">
           <div className="flex items-center justify-between mb-6">
             <div>
               <h3 className="text-white font-semibold">Stock Movement</h3>
@@ -136,7 +136,7 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Inventory by Category Pie */}
-        <div className="card">
+        <div className="card min-w-0">
           <div className="flex items-center justify-between mb-6">
             <div>
               <h3 className="text-white font-semibold">By Category</h3>
@@ -167,7 +167,7 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* Recent Activity */}
-      <div className="card">
+      <div className="card min-w-0">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-white font-semibold">Recent Activity</h3>
           <span className="badge badge-in">Live</span>

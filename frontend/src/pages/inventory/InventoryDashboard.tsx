@@ -46,7 +46,7 @@ export default function InventoryDashboardPage() {
       {/* Recent movements */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Recent Stock In */}
-        <div className="card">
+        <div className="card min-w-0">
           <div className="flex items-center gap-2 mb-4">
             <ArrowDownCircle size={18} className="text-emerald-400" />
             <h3 className="text-white font-semibold">Recent Stock In</h3>
@@ -72,7 +72,7 @@ export default function InventoryDashboardPage() {
         </div>
 
         {/* Recent Stock Out */}
-        <div className="card">
+        <div className="card min-w-0">
           <div className="flex items-center gap-2 mb-4">
             <ArrowUpCircle size={18} className="text-red-400" />
             <h3 className="text-white font-semibold">Recent Stock Out</h3>
