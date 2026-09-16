@@ -5,6 +5,7 @@ import { NavLink, useNavigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import { GlobalSearch } from '../ui/GlobalSearch';
+import logoUrl from '../../assets/logo.png';
 import {
   LayoutDashboard, Package, Tag, Ruler, Building2, MapPin,
   Truck, Users, BarChart3, FileText, ClipboardList, LogOut,
@@ -174,8 +175,8 @@ export function Sidebar({ role }: { role: 'ADMIN' | 'INVENTORY_STAFF' }) {
           aria-label="WIMS - Warehouse Management System"
         >
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-[14px] bg-indigo-600/90 border border-indigo-400/20 shadow-sm flex items-center justify-center flex-shrink-0 transition-all duration-200 hover:scale-[1.03] hover:shadow-indigo-500/25 hover:bg-indigo-500">
-              <Warehouse size={24} className="text-white" strokeWidth={1.75} />
+            <div className="w-14 h-14 rounded-[14px] bg-white border border-indigo-400/20 shadow-sm flex items-center justify-center flex-shrink-0 transition-all duration-200 hover:scale-[1.03] hover:shadow-indigo-500/25 p-1.5">
+              <img src={logoUrl} alt="WIMS Logo" className="w-full h-full object-contain" />
             </div>
             <div className="flex flex-col justify-center">
               <p className="text-white font-bold text-[21px] leading-none tracking-tight mb-1">
