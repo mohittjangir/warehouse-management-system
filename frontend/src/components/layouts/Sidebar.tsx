@@ -169,19 +169,27 @@ export function Sidebar({ role }: { role: 'ADMIN' | 'INVENTORY_STAFF' }) {
 
       <aside className={`sidebar fixed inset-y-0 left-0 z-50 transform transition-transform duration-300 lg:translate-x-0 ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         {/* Logo */}
-        <div className="px-4 py-5 border-b border-white/08 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center flex-shrink-0">
-              <Warehouse size={20} className="text-white" />
+        <div 
+          className="px-5 py-6 border-b border-white/10 flex items-center justify-between"
+          aria-label="WIMS - Warehouse Management System"
+        >
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-[14px] bg-indigo-600/90 border border-indigo-400/20 shadow-sm flex items-center justify-center flex-shrink-0 transition-all duration-200 hover:scale-[1.03] hover:shadow-indigo-500/25 hover:bg-indigo-500">
+              <Warehouse size={24} className="text-white" strokeWidth={1.75} />
             </div>
-            <div>
-              <p className="text-white font-bold text-sm leading-none">WIMS</p>
-              <p className="text-slate-500 text-xs mt-0.5">Warehouse System</p>
+            <div className="flex flex-col justify-center">
+              <p className="text-white font-bold text-[21px] leading-none tracking-tight mb-1">
+                WIMS
+              </p>
+              <p className="text-slate-400 text-[13px] font-medium leading-[1.3]">
+                Warehouse Management<br />System
+              </p>
             </div>
           </div>
           <button 
             className="lg:hidden p-2 text-slate-400 hover:text-white rounded-lg hover:bg-white/10"
             onClick={() => setMobileOpen(false)}
+            aria-label="Close menu"
           >
             <X size={20} />
           </button>
