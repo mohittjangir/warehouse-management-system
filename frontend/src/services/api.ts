@@ -119,3 +119,9 @@ export const userService = {
 export const auditService = {
   list: (params?: Record<string, unknown>) => api.get('/audit-logs', { params }),
 };
+
+// ─── Search ──────────────────────────────────────────────────────────────────
+export const searchService = {
+  global: (q: string) => api.get('/search', { params: { q } }),
+};
+

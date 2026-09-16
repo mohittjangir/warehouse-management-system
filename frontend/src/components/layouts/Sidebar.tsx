@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect, createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { dashboardService } from '../../services/api';
-import { NavLink, useNavigate, Outlet } from 'react-router-dom';
+import { NavLink, useNavigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
+import { GlobalSearch } from '../ui/GlobalSearch';
 import {
   LayoutDashboard, Package, Tag, Ruler, Building2, MapPin,
   Truck, Users, BarChart3, FileText, ClipboardList, LogOut,
@@ -343,6 +344,7 @@ export function TopBar({ title, subtitle }: { title: string; subtitle?: string }
       </div>
       
       <div className="flex items-center gap-3">
+        <GlobalSearch />
         <NotificationBell />
         <button 
           onClick={toggleTheme} 
