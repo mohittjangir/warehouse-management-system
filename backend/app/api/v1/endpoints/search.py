@@ -6,7 +6,7 @@ from app.models.models import User, UserRole, Product, Batch, Warehouse, Storage
 
 router = APIRouter()
 
-@router.get("/")
+@router.get("")
 def global_search(
     q: str = Query(..., min_length=2),
     db: Session = Depends(get_db),
