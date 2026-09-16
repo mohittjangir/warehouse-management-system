@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useAuth } from '../../context/AuthContext';
 import { Warehouse, Eye, EyeOff, AlertCircle } from 'lucide-react';
+import logoUrl from '../../assets/logo.png';
 import toast from 'react-hot-toast';
 
 const schema = z.object({
@@ -50,9 +51,9 @@ export default function LoginPage() {
           background: 'radial-gradient(circle at 30% 50%, rgba(99,102,241,0.15) 0%, transparent 70%)',
         }} />
         <div className="relative z-10 max-w-md text-center">
-          <div className="w-20 h-20 rounded-3xl bg-indigo-600 flex items-center justify-center mx-auto mb-8"
+          <div className="w-24 h-24 rounded-3xl bg-white flex items-center justify-center mx-auto mb-8 p-3"
             style={{ boxShadow: '0 0 60px rgba(99,102,241,0.4)' }}>
-            <Warehouse size={40} className="text-white" />
+            <img src={logoUrl} alt="WIMS Logo" className="w-full h-full object-contain" />
           </div>
           <h1 className="text-4xl font-bold text-white mb-4">
             Warehouse Inventory
@@ -82,8 +83,8 @@ export default function LoginPage() {
         <div className="w-full max-w-md">
           <div className="glass rounded-3xl p-6 sm:p-8" style={{ boxShadow: '0 25px 60px rgba(0,0,0,0.5)' }}>
             <div className="text-center mb-8">
-              <div className="w-12 h-12 rounded-2xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center mx-auto mb-4">
-                <Warehouse size={24} className="text-indigo-400" />
+              <div className="w-14 h-14 rounded-2xl bg-white border border-indigo-500/30 flex items-center justify-center mx-auto mb-4 p-1.5 shadow-sm">
+                <img src={logoUrl} alt="WIMS Logo" className="w-full h-full object-contain" />
               </div>
               <h2 className="text-2xl font-bold text-white">Sign In</h2>
               <p className="text-slate-400 text-sm mt-1">Access your warehouse portal</p>
