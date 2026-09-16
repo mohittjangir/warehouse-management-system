@@ -123,7 +123,7 @@ export default function ProductsPage() {
         }
       >
         <form id="product-form" onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="form-group">
               <label className="form-label">SKU *</label>
               <input {...register('sku')} className="form-input" placeholder="e.g. SB-001" id="sku" />
@@ -133,7 +133,7 @@ export default function ProductsPage() {
               <label className="form-label">Product Code</label>
               <input {...register('product_code')} className="form-input" placeholder="e.g. PKG-S" id="product-code" />
             </div>
-            <div className="col-span-2 form-group">
+            <div className="col-span-1 md:col-span-2 form-group">
               <label className="form-label">Product Name *</label>
               <input {...register('name')} className="form-input" placeholder="e.g. Small Packaging Box" id="product-name" />
               {errors.name && <p className="form-error">{errors.name.message}</p>}
@@ -169,7 +169,7 @@ export default function ProductsPage() {
               <label className="form-label">Maximum Stock</label>
               <input {...register('maximum_stock', { valueAsNumber: true })} type="number" min="0" className="form-input" id="max-stock" />
             </div>
-            <div className="col-span-2 form-group">
+            <div className="col-span-1 md:col-span-2 form-group">
               <label className="form-label">Description</label>
               <input {...register('description')} className="form-input" placeholder="Optional description" id="prod-description" />
             </div>

@@ -1,7 +1,7 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { dashboardService } from '../../services/api';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import {
@@ -114,6 +114,10 @@ function NavItem({ item, collapsed }: { item: unknown; collapsed?: boolean }) {
     <NavLink
       to={i.to}
       className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+      onClick={() => {
+        const { setMobileOpen } = useSidebarContext();
+        if (window.innerWidth < 1024) setMobileOpen(false);
+      }}
     >
       {i.icon}
       {i.label}
@@ -121,9 +125,30 @@ function NavItem({ item, collapsed }: { item: unknown; collapsed?: boolean }) {
   );
 }
 
+// Mobile sidebar state context
+interface SidebarContextType {
+  mobileOpen: boolean;
+  setMobileOpen: (val: boolean) => void;
+}
+const SidebarContext = createContext<SidebarContextType>({ mobileOpen: false, setMobileOpen: () => {} });
+
+export function useSidebarContext() {
+  return useContext(SidebarContext);
+}
+
+export function SidebarProvider({ children }: { children: React.ReactNode }) {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  return (
+    <SidebarContext.Provider value={{ mobileOpen, setMobileOpen }}>
+      {children}
+    </SidebarContext.Provider>
+  );
+}
+
 export function Sidebar({ role }: { role: 'ADMIN' | 'INVENTORY_STAFF' }) {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const { mobileOpen, setMobileOpen } = useSidebarContext();
   const nav = role === 'ADMIN' ? adminNav : staffNav;
 
   const handleLogout = () => {
@@ -132,54 +157,70 @@ export function Sidebar({ role }: { role: 'ADMIN' | 'INVENTORY_STAFF' }) {
   };
 
   return (
-    <aside className="sidebar">
-      {/* Logo */}
-      <div className="px-4 py-5 border-b border-white/08">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center flex-shrink-0">
-            <Warehouse size={20} className="text-white" />
+    <>
+      {/* Mobile Backdrop */}
+      {mobileOpen && (
+        <div 
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden transition-opacity"
+          onClick={() => setMobileOpen(false)}
+        />
+      )}
+
+      <aside className={`sidebar fixed inset-y-0 left-0 z-50 transform transition-transform duration-300 lg:translate-x-0 ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        {/* Logo */}
+        <div className="px-4 py-5 border-b border-white/08 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center flex-shrink-0">
+              <Warehouse size={20} className="text-white" />
+            </div>
+            <div>
+              <p className="text-white font-bold text-sm leading-none">WIMS</p>
+              <p className="text-slate-500 text-xs mt-0.5">Warehouse System</p>
+            </div>
           </div>
-          <div>
-            <p className="text-white font-bold text-sm leading-none">WIMS</p>
-            <p className="text-slate-500 text-xs mt-0.5">Warehouse System</p>
-          </div>
+          <button 
+            className="lg:hidden p-2 text-slate-400 hover:text-white rounded-lg hover:bg-white/10"
+            onClick={() => setMobileOpen(false)}
+          >
+            <X size={20} />
+          </button>
         </div>
-      </div>
 
-      {/* Role badge */}
-      <div className="px-4 py-3 border-b border-white/08">
-        <span className={`badge text-xs ${role === 'ADMIN' ? 'badge-in' : 'badge-healthy'}`}>
-          {role === 'ADMIN' ? '🛡 Admin Portal' : '📦 Staff Portal'}
-        </span>
-      </div>
-
-      {/* Navigation */}
-      <nav className="flex-1 py-3 overflow-y-auto space-y-0.5 px-1">
-        {nav.map((item: any, i) => (
-          <NavItem key={i} item={item} />
-        ))}
-      </nav>
-
-      {/* User footer */}
-      <div className="px-4 py-4 border-t border-white/08">
-        <div className="flex items-center gap-3 mb-3">
-          <div className="w-8 h-8 rounded-full bg-indigo-700 flex items-center justify-center text-sm font-bold text-white flex-shrink-0">
-            {user?.name?.charAt(0).toUpperCase()}
-          </div>
-          <div className="min-w-0">
-            <p className="text-white text-xs font-medium truncate">{user?.name}</p>
-            <p className="text-slate-500 text-xs truncate">{user?.email}</p>
-          </div>
+        {/* Role badge */}
+        <div className="px-4 py-3 border-b border-white/08">
+          <span className={`badge text-xs ${role === 'ADMIN' ? 'badge-in' : 'badge-healthy'}`}>
+            {role === 'ADMIN' ? '🛡 Admin Portal' : '📦 Staff Portal'}
+          </span>
         </div>
-        <button
-          onClick={handleLogout}
-          className="btn-secondary btn w-full justify-center text-xs py-2"
-        >
-          <LogOut size={14} />
-          Logout
-        </button>
-      </div>
-    </aside>
+
+        {/* Navigation */}
+        <nav className="flex-1 py-3 overflow-y-auto space-y-0.5 px-1">
+          {nav.map((item: any, i) => (
+            <NavItem key={i} item={item} />
+          ))}
+        </nav>
+
+        {/* User footer */}
+        <div className="px-4 py-4 border-t border-white/08">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-8 h-8 rounded-full bg-indigo-700 flex items-center justify-center text-sm font-bold text-white flex-shrink-0">
+              {user?.name?.charAt(0).toUpperCase()}
+            </div>
+            <div className="min-w-0">
+              <p className="text-white text-xs font-medium truncate">{user?.name}</p>
+              <p className="text-slate-500 text-xs truncate">{user?.email}</p>
+            </div>
+          </div>
+          <button
+            onClick={handleLogout}
+            className="btn-secondary btn w-full justify-center text-xs py-2"
+          >
+            <LogOut size={14} />
+            Logout
+          </button>
+        </div>
+      </aside>
+    </>
   );
 }
 
@@ -278,19 +319,27 @@ function NotificationBell() {
 
 export function TopBar({ title, subtitle }: { title: string; subtitle?: string }) {
   const { theme, toggleTheme } = useTheme();
+  const { setMobileOpen } = useSidebarContext();
 
   return (
     <header
-      className="fixed top-0 right-0 z-30 flex items-center justify-between px-6 topbar"
+      className="fixed top-0 right-0 z-30 flex items-center justify-between px-4 lg:px-6 topbar lg:w-[calc(100%-var(--sidebar-width))] w-full"
       style={{
-        left: 'var(--sidebar-width)',
         height: 'var(--header-height)',
         backdropFilter: 'blur(20px)',
       }}
     >
-      <div>
-        <h1 className="page-title text-lg">{title}</h1>
-        {subtitle && <p className="page-subtitle">{subtitle}</p>}
+      <div className="flex items-center gap-3">
+        <button 
+          className="lg:hidden p-2 -ml-2 text-slate-400 hover:text-white rounded-lg hover:bg-white/10"
+          onClick={() => setMobileOpen(true)}
+        >
+          <Menu size={20} />
+        </button>
+        <div className="min-w-0">
+          <h1 className="page-title text-base lg:text-lg truncate">{title}</h1>
+          {subtitle && <p className="page-subtitle hidden sm:block truncate">{subtitle}</p>}
+        </div>
       </div>
       
       <div className="flex items-center gap-3">

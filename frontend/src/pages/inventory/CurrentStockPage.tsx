@@ -82,7 +82,7 @@ export default function CurrentStockPage() {
         <select
           value={warehouseFilter}
           onChange={e => { setWarehouseFilter(e.target.value); setPage(1); }}
-          className="form-select w-44"
+          className="form-select w-full sm:w-44"
           id="warehouse-filter"
         >
           <option value="">All Warehouses</option>
@@ -91,7 +91,7 @@ export default function CurrentStockPage() {
         <select
           value={categoryFilter}
           onChange={e => setCategoryFilter(e.target.value)}
-          className="form-select w-44"
+          className="form-select w-full sm:w-44"
           id="category-filter"
         >
           <option value="">All Categories</option>
@@ -100,7 +100,7 @@ export default function CurrentStockPage() {
         <select
           value={statusFilter}
           onChange={e => setStatusFilter(e.target.value)}
-          className="form-select w-40"
+          className="form-select w-full sm:w-40"
           id="status-filter"
         >
           <option value="">All Status</option>

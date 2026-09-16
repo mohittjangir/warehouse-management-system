@@ -51,7 +51,7 @@ export default function MovementsPage() {
         <SearchBar value={search} onChange={(v) => { setSearch(v); setPage(1); }}
           placeholder="Search transaction #, reference..." className="flex-1 min-w-48" />
         <select value={typeFilter} onChange={e => { setTypeFilter(e.target.value); setPage(1); }}
-          className="form-select w-44" id="type-filter">
+          className="form-select w-full sm:w-44" id="type-filter">
           <option value="">All Types</option>
           <option value="STOCK_IN">Stock In</option>
           <option value="STOCK_OUT">Stock Out</option>

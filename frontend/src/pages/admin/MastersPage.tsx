@@ -164,7 +164,7 @@ export default function MastersPage({ tab: initialTab }: { tab: TabType }) {
               <label className="form-label">Supplier Name *</label>
               <input {...register('name', { required: true })} className="form-input" id="sup-name" />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="form-group">
                 <label className="form-label">Contact Person</label>
                 <input {...register('contact_person')} className="form-input" id="sup-contact" />
@@ -191,7 +191,7 @@ export default function MastersPage({ tab: initialTab }: { tab: TabType }) {
               <label className="form-label">Customer Name *</label>
               <input {...register('name', { required: true })} className="form-input" id="cust-name" />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="form-group">
                 <label className="form-label">Phone</label>
                 <input {...register('phone')} className="form-input" id="cust-phone" />

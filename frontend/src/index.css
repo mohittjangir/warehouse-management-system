@@ -182,7 +182,7 @@
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    @apply rounded-2xl overflow-hidden;
+    @apply rounded-2xl overflow-x-auto w-full;
   }
   .table {
     @apply w-full text-sm;
@@ -262,7 +262,7 @@
 
   /* ─── Sidebar ─── */
   .sidebar {
-    @apply fixed left-0 top-0 h-full z-40 flex flex-col;
+    @apply flex flex-col;
     width: var(--sidebar-width);
     background: rgba(10, 15, 30, 0.95);
     backdrop-filter: blur(20px);
@@ -290,10 +290,16 @@
 
   /* ─── Page layout ─── */
   .page-content {
-    @apply p-6 space-y-6;
-    margin-left: var(--sidebar-width);
-    padding-top: calc(var(--header-height) + 24px);
+    @apply p-4 md:p-6 space-y-4 md:space-y-6 w-full;
+    margin-left: 0;
+    padding-top: calc(var(--header-height) + 16px);
     min-height: 100vh;
+  }
+  @media (min-width: 1024px) {
+    .page-content {
+      margin-left: var(--sidebar-width);
+      padding-top: calc(var(--header-height) + 24px);
+    }
   }
   .page-title {
     @apply text-2xl font-bold text-white;

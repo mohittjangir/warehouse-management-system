@@ -78,9 +78,9 @@ export default function LoginPage() {
       </div>
 
       {/* Right side - form */}
-      <div className="flex-1 flex items-center justify-center p-8">
+      <div className="flex-1 flex items-center justify-center p-4 sm:p-8">
         <div className="w-full max-w-md">
-          <div className="glass rounded-3xl p-8" style={{ boxShadow: '0 25px 60px rgba(0,0,0,0.5)' }}>
+          <div className="glass rounded-3xl p-6 sm:p-8" style={{ boxShadow: '0 25px 60px rgba(0,0,0,0.5)' }}>
             <div className="text-center mb-8">
               <div className="w-12 h-12 rounded-2xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center mx-auto mb-4">
                 <Warehouse size={24} className="text-indigo-400" />
