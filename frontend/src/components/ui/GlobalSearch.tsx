@@ -300,7 +300,7 @@ export function GlobalSearch() {
                       {results.warehouses.map((w) => (
                         <button 
                           key={`wh-${w.id}`}
-                          onClick={() => handleNavigate('/admin/masters')}
+                          onClick={() => handleNavigate(`/admin/warehouses?search=${w.name}`)}
                           className="w-full text-left flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-colors group"
                         >
                           <div className="p-2 rounded-lg bg-purple-500/20 text-purple-400 mt-0.5 group-hover:bg-purple-500/30">
@@ -322,7 +322,7 @@ export function GlobalSearch() {
                       {results.locations.map((l) => (
                         <button 
                           key={`loc-${l.id}`}
-                          onClick={() => handleNavigate('/admin/masters')}
+                          onClick={() => handleNavigate(`/admin/locations?search=${l.name}`)}
                           className="w-full text-left flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-colors group"
                         >
                           <div className="p-2 rounded-lg bg-slate-500/20 text-slate-400 mt-0.5 group-hover:bg-slate-500/30">
@@ -344,7 +344,7 @@ export function GlobalSearch() {
                       {results.suppliers.map((s) => (
                         <button 
                           key={`sup-${s.id}`}
-                          onClick={() => handleNavigate('/admin/masters')}
+                          onClick={() => handleNavigate(`/admin/suppliers?search=${s.name}`)}
                           className="w-full text-left flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-colors group"
                         >
                           <div className="p-2 rounded-lg bg-orange-500/20 text-orange-400 mt-0.5 group-hover:bg-orange-500/30">
@@ -366,7 +366,7 @@ export function GlobalSearch() {
                       {results.customers.map((c) => (
                         <button 
                           key={`cus-${c.id}`}
-                          onClick={() => handleNavigate('/admin/masters')}
+                          onClick={() => handleNavigate(`/admin/customers?search=${c.name}`)}
                           className="w-full text-left flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-colors group"
                         >
                           <div className="p-2 rounded-lg bg-pink-500/20 text-pink-400 mt-0.5 group-hover:bg-pink-500/30">
