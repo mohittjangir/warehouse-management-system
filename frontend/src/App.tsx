@@ -25,6 +25,7 @@ const AuditLogsPage = lazy(() => import('./pages/admin/AuditLogsPage'));
 const MastersPage = lazy(() => import('./pages/admin/MastersPage'));
 const ReportsPage = lazy(() => import('./pages/shared/ReportsPage'));
 const AdjustmentsPage = lazy(() => import('./pages/admin/AdjustmentsPage'));
+const SettingsPage = lazy(() => import('./pages/admin/SettingsPage'));
 
 const qc = new QueryClient({
   defaultOptions: {
@@ -69,6 +70,7 @@ function App() {
                 <Route path="reports/movements" element={<Suspense fallback={<PageLoader />}><ReportsPage type="movements" /></Suspense>} />
                 <Route path="users" element={<Suspense fallback={<PageLoader />}><UsersPage /></Suspense>} />
                 <Route path="audit-logs" element={<Suspense fallback={<PageLoader />}><AuditLogsPage /></Suspense>} />
+                <Route path="settings" element={<Suspense fallback={<PageLoader />}><SettingsPage /></Suspense>} />
               </Route>
 
               {/* Inventory Staff Portal */}

@@ -345,3 +345,64 @@ async def test_partial_carton_display(db, setup_data):
     assert total == 230
     assert cartons == 4
     assert loose == 30
+
+@pytest.mark.asyncio
+async def test_stock_out_exact_quantity_available(db, setup_data):
+    """Boundary: Stock out exactly the available amount (100 - 100 = 0)"""
+    from app.services.inventory_service import add_stock, remove_stock, get_total_product_quantity
+
+    data = setup_data
+    # Add exactly 100 units
+    async with db.begin():
+        await add_stock(
+            db=db, product_id=data["product"].id,
+            warehouse_id=data["warehouse"].id, location_id=None,
+            carton_quantity=2, unit_quantity=0,
+            batch_number="TEST-EXACT-001",
+            manufacturing_date=None, expiry_date=None,
+            supplier_id=None, reference_number=None, remarks=None,
+            user=data["user"],
+        )
+
+    # Remove exactly 100 units
+    async with db.begin():
+        txns = await remove_stock(
+            db=db, product_id=data["product"].id,
+            warehouse_id=data["warehouse"].id, location_id=None,
+            quantity=100, customer_id=None,
+            reference_number=None, remarks=None, reason="Exact removal test",
+            user=data["user"],
+        )
+
+    assert len(txns) == 1
+    total = await get_total_product_quantity(db, data["product"].id)
+    assert total == 0
+
+
+@pytest.mark.asyncio
+async def test_stock_out_boundary_one_over(db, setup_data):
+    """Boundary: Stock out exactly 1 unit more than available (100 - 101 = ERROR)"""
+    from app.services.inventory_service import add_stock, remove_stock
+
+    data = setup_data
+    # Add exactly 100 units
+    async with db.begin():
+        await add_stock(
+            db=db, product_id=data["product"].id,
+            warehouse_id=data["warehouse"].id, location_id=None,
+            carton_quantity=2, unit_quantity=0,
+            batch_number="TEST-OVER-001",
+            manufacturing_date=None, expiry_date=None,
+            supplier_id=None, reference_number=None, remarks=None,
+            user=data["user"],
+        )
+
+    with pytest.raises(ValueError, match="Insufficient stock"):
+        async with db.begin():
+            await remove_stock(
+                db=db, product_id=data["product"].id,
+                warehouse_id=data["warehouse"].id, location_id=None,
+                quantity=101,  # Exactly 1 over available
+                customer_id=None, reference_number=None,
+                remarks=None, reason=None, user=data["user"],
+            )

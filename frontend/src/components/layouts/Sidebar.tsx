@@ -54,6 +54,7 @@ const adminNav: (NavGroup | { label: string; to: string; icon: React.ReactNode }
   },
   { label: 'Users', to: '/admin/users', icon: <Shield size={18} /> },
   { label: 'Audit Logs', to: '/admin/audit-logs', icon: <ClipboardList size={18} /> },
+  { label: 'Settings', to: '/admin/settings', icon: <Settings size={18} /> },
 ];
 
 const staffNav = [
@@ -171,7 +172,7 @@ export function Sidebar({ role }: { role: 'ADMIN' | 'INVENTORY_STAFF' }) {
       <aside className={`sidebar fixed inset-y-0 left-0 z-50 transform transition-transform duration-300 lg:translate-x-0 ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         {/* Logo */}
         <div 
-          className="px-5 py-6 border-b border-white/10 flex items-center justify-between"
+          className="px-5 py-6 border-b border-slate-200 dark:border-white/10 flex items-center justify-between"
           aria-label="WIMS - Warehouse Management System"
         >
           <div className="flex items-center gap-4">
@@ -179,16 +180,16 @@ export function Sidebar({ role }: { role: 'ADMIN' | 'INVENTORY_STAFF' }) {
               <img src={logoUrl} alt="WIMS Logo" className="w-full h-full object-contain" />
             </div>
             <div className="flex flex-col justify-center">
-              <p className="text-white font-bold text-[21px] leading-none tracking-tight mb-1">
+              <p className="text-slate-900 dark:text-white font-bold text-[21px] leading-none tracking-tight mb-1">
                 WIMS
               </p>
-              <p className="text-slate-400 text-[13px] font-medium leading-[1.3]">
+              <p className="text-slate-500 dark:text-slate-400 text-[13px] font-medium leading-[1.3]">
                 Warehouse Management<br />System
               </p>
             </div>
           </div>
           <button 
-            className="lg:hidden p-2 text-slate-400 hover:text-white rounded-lg hover:bg-white/10"
+            className="lg:hidden p-2 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-white/10"
             onClick={() => setMobileOpen(false)}
             aria-label="Close menu"
           >
@@ -197,7 +198,7 @@ export function Sidebar({ role }: { role: 'ADMIN' | 'INVENTORY_STAFF' }) {
         </div>
 
         {/* Role badge */}
-        <div className="px-4 py-3 border-b border-white/08">
+        <div className="px-4 py-3 border-b border-slate-200 dark:border-white/08">
           <span className={`badge text-xs ${role === 'ADMIN' ? 'badge-in' : 'badge-healthy'}`}>
             {role === 'ADMIN' ? '🛡 Admin Portal' : '📦 Staff Portal'}
           </span>
@@ -211,19 +212,23 @@ export function Sidebar({ role }: { role: 'ADMIN' | 'INVENTORY_STAFF' }) {
         </nav>
 
         {/* User footer */}
-        <div className="px-4 py-4 border-t border-white/08">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-8 h-8 rounded-full bg-indigo-700 flex items-center justify-center text-sm font-bold text-white flex-shrink-0">
-              {user?.name?.charAt(0).toUpperCase()}
+        <div className="px-4 py-4 border-t border-slate-200 dark:border-white/08">
+          <div className="flex items-center gap-3 p-3 rounded-xl border border-slate-200 dark:border-white/08 bg-slate-50 dark:bg-white/05">
+            <div className="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center flex-shrink-0">
+              <ShieldCheck size={20} className="text-indigo-400" />
             </div>
-            <div className="min-w-0">
-              <p className="text-white text-xs font-medium truncate">{user?.name}</p>
-              <p className="text-slate-500 text-xs truncate">{user?.email}</p>
+            <div className="overflow-hidden">
+              <p className="text-sm font-semibold text-slate-900 dark:text-white truncate">
+                {user?.name || 'User'}
+              </p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
+                {role === 'ADMIN' ? 'Administrator' : 'Staff'}
+              </p>
             </div>
           </div>
           <button
             onClick={handleLogout}
-            className="btn-secondary btn w-full justify-center text-xs py-2"
+            className="btn-secondary btn w-full justify-center text-xs py-2 mt-3"
           >
             <LogOut size={14} />
             Logout
@@ -341,7 +346,7 @@ export function TopBar({ title, subtitle }: { title: string; subtitle?: string }
     >
       <div className="flex items-center gap-3">
         <button 
-          className="lg:hidden p-2 -ml-2 text-slate-400 hover:text-white rounded-lg hover:bg-white/10"
+          className="lg:hidden p-2 -ml-2 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-white/10"
           onClick={() => setMobileOpen(true)}
         >
           <Menu size={20} />
@@ -357,7 +362,7 @@ export function TopBar({ title, subtitle }: { title: string; subtitle?: string }
         <NotificationBell />
         <button 
           onClick={toggleTheme} 
-          className="w-10 h-10 rounded-full flex items-center justify-center glass hover:bg-white/10 transition-colors"
+          className="w-10 h-10 rounded-full flex items-center justify-center glass hover:bg-slate-50 dark:hover:bg-white/10 transition-colors"
           title="Toggle Theme"
         >
           {theme === 'dark' ? <Sun size={18} className="text-amber-400" /> : <Moon size={18} className="text-indigo-600" />}

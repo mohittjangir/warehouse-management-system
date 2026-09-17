@@ -44,7 +44,9 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex" style={{ background: 'linear-gradient(135deg, #0a0f1e 0%, #0d1b3e 50%, #0a0f1e 100%)' }}>
+    <div className="min-h-screen flex bg-slate-50 dark:bg-slate-950 relative">
+      <div className="absolute inset-0 z-0 hidden dark:block" style={{ background: 'linear-gradient(135deg, #0a0f1e 0%, #0d1b3e 50%, #0a0f1e 100%)' }} />
+      <div className="relative z-10 flex w-full">
       {/* Left side - branding */}
       <div className="hidden lg:flex lg:w-1/2 flex-col items-center justify-center p-12 relative overflow-hidden">
         <div className="absolute inset-0" style={{
@@ -55,11 +57,11 @@ export default function LoginPage() {
             style={{ boxShadow: '0 0 60px rgba(99,102,241,0.4)' }}>
             <img src={logoUrl} alt="WIMS Logo" className="w-full h-full object-contain" />
           </div>
-          <h1 className="text-4xl font-bold text-white mb-4">
+          <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">
             Warehouse Inventory
-            <br /><span className="text-indigo-400">Management System</span>
+            <br /><span className="text-indigo-600 dark:text-indigo-400">Management System</span>
           </h1>
-          <p className="text-slate-400 text-lg leading-relaxed">
+          <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed">
             Track every carton. Monitor every movement.
             Complete inventory visibility in real-time.
           </p>
@@ -71,7 +73,7 @@ export default function LoginPage() {
             ].map(f => (
               <div key={f.label} className="glass rounded-xl p-4 text-center">
                 <div className="text-2xl mb-2">{f.icon}</div>
-                <p className="text-xs text-slate-400 font-medium">{f.label}</p>
+                <p className="text-xs text-slate-600 dark:text-slate-400 font-medium">{f.label}</p>
               </div>
             ))}
           </div>
@@ -86,8 +88,8 @@ export default function LoginPage() {
               <div className="w-14 h-14 rounded-2xl bg-white border border-indigo-500/30 flex items-center justify-center mx-auto mb-4 p-1.5 shadow-sm">
                 <img src={logoUrl} alt="WIMS Logo" className="w-full h-full object-contain" />
               </div>
-              <h2 className="text-2xl font-bold text-white">Sign In</h2>
-              <p className="text-slate-400 text-sm mt-1">Access your warehouse portal</p>
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Sign In</h2>
+              <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">Access your warehouse portal</p>
             </div>
 
             {error && (
@@ -152,6 +154,7 @@ export default function LoginPage() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
